@@ -9,10 +9,12 @@
         input { width: 60%; padding: 10px; margin-top: 10px; }
         button { padding: 10px 15px; }
         .chat-box { border: 1px solid #ccc; padding: 20px; width: 60%; margin: auto; min-height: 300px; }
+        .robot-img { width: 150px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <h1>AI Chatbot</h1>
+    <img src="{{ url_for('static', filename='images/robot.png') }}" alt="Cute Robot" class="robot-img">
     <div class="chat-box" id="chat-box"></div>
     <input type="text" id="user-input" placeholder="Type your message here..." />
     <button onclick="sendMessage()">Send</button>
