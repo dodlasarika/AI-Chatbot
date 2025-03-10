@@ -5,26 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Chatbot</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        input { width: 60%; padding: 10px; margin-top: 10px; }
-        button { padding: 10px 15px; }
-        .chat-box { border: 1px solid #ccc; padding: 20px; width: 60%; margin: auto; min-height: 300px; }
-        .robot-img { width: 150px; margin-bottom: 20px; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .chat-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .robot-image {
+            width: 100px;
+            height: 100px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .chat-box {
+            border: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            min-height: 300px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        input {
+            width: 70%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 20px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4757;
+        }
     </style>
 </head>
 <body>
     <h1>AI Chatbot</h1>
-    <img src="{{ url_for('static', filename='images/robot.png') }}" alt="Cute Robot" class="robot-img">
-    <div class="chat-box" id="chat-box"></div>
-    <input type="text" id="user-input" placeholder="Type your message here..." />
-    <button onclick="sendMessage()">Send</button>
+    
+    <div class="chat-container">
+        <img src="{{ url_for('static', filename='images/robot.png') }}" class="robot-image" alt="Chatbot">
+        <div class="chat-box" id="chat-box"></div>
+        
+        <input type="text" id="user-input" placeholder="Type your message here..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
     <script>
         function sendMessage() {
             let user_input = document.getElementById("user-input").value;
             let chatBox = document.getElementById("chat-box");
 
-            chatBox.innerHTML += "<p><b>You:</b> " + user_input + "</p>";
+            chatBox.innerHTML += `<p><b>You:</b> ${user_input}</p>`;
             document.getElementById("user-input").value = "";
 
             fetch("/chat", {
@@ -34,7 +98,7 @@
             })
             .then(response => response.text())
             .then(data => {
-                chatBox.innerHTML += "<p><b>Bot:</b> " + data + "</p>";
+                chatBox.innerHTML += `<p><b>Bot:</b> ${data}</p>`;
             });
         }
     </script>
