@@ -45,5 +45,9 @@ def chat():
     return response.text
 
 # ✅ ADD THIS PART TO RUN FLASK PROPERLY
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 10000))  # Render needs a port
+    app.run(debug=True, host="0.0.0.0", port=port)
+
